@@ -22,6 +22,21 @@
 
 `docker-compose up --build`
 
+В случае ошибки:  
+
+```json
+=> ERROR [backend 6/9] RUN ./mvnw dependency:go-offline                                                           0.3s
+------
+ > [backend 6/9] RUN ./mvnw dependency:go-offline:
+: not foundw: line 20:
+: not foundw: line 31:
+0.266 ./mvnw: set: line 32: illegal option -
+------
+failed to solve: process "/bin/sh -c ./mvnw dependency:go-offline" did not complete successfully: exit code: 2
+```
+
+Скорее всего неправильно установились mvnw и mvnw.cmd. Тогда зайдите в архив и перекиньте в корневуй папку проекта те файлы которые там есть и снова попробуйте `docker-compose up --build`.
+
 Ждите.
 
 После можно зайти на Swagger UI `http://localhost:8080/swagger-ui.html`
