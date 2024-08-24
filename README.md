@@ -14,7 +14,7 @@
 
 Пример: `cd C:\Users\User\Desktop\Task_managment`.
 
-Потом пропишите `git clone https://github.com/MrDenyGrom/task_mang.git`.
+Потом пропишите `git clone https://github.com/MrDenyGrom/new_task_mang.git`.
 
 Перейдите в проект `cd C:\Users\User\Desktop\Task_managment\task_mang`.
 
