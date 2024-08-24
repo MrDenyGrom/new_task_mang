@@ -400,7 +400,7 @@ Task successfully deleted
 
 ### 5.2 Получение комментариев к задаче
 
-**GET** */comments/{taskId}/comments*
+**GET** `/comments/{taskId}/comments`
 
 Возвращает список всех комментариев к задаче.
 
