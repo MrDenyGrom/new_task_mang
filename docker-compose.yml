@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/task_mang_db
+      - SPRING_DATASOURCE_USERNAME=Userr
+      - SPRING_DATASOURCE_PASSWORD=12345
+      - JWT_SECRET=key-789-zxcvasdfg?qwerty*?+poiuytrewqzxcvbnmlkjhgfdsapoiuytrewqasdfghjklpoiuytrewqzxcvbnmpoiuytrewqasdfghjklzxcvbnmpoiuytrewq
+      - JWT_EXPIRATION=36000000
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=Userr
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=task_mang_db
+    ports:
+      - "5432:5432"
