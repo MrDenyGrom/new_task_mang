@@ -16,7 +16,7 @@
 
 Потом пропишите `git clone https://github.com/MrDenyGrom/new_task_mang.git`.
 
-Перейдите в проект `cd C:\Users\User\Desktop\Task_managment\task_mang`.
+Перейдите в проект `cd C:\Users\User\Desktop\Task_managment\new_task_mang`.
 
 И наконец запустите docker compose `docker-compose up --build`. 
 
