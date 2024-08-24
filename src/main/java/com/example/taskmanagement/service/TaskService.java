@@ -6,18 +6,12 @@ import com.example.taskmanagement.model.AppUser;
 import com.example.taskmanagement.model.Status;
 import com.example.taskmanagement.model.Task;
 import com.example.taskmanagement.repository.TaskRepository;
-import com.example.taskmanagement.repository.UserRepository;
 import com.example.taskmanagement.exception.TaskNotFoundException;
-import com.example.taskmanagement.exception.UnauthorizedAccessException;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
