@@ -1,7 +1,6 @@
 package com.example.taskmanagement.service;
 
 import com.example.taskmanagement.config.UserDetail;
-import com.example.taskmanagement.model.AppUser;
 import com.example.taskmanagement.repository.UserRepository;
 import com.example.taskmanagement.security.JwtTokenProvider;
 import org.slf4j.Logger;
