@@ -25,7 +25,7 @@
 В случае ошибки:  
 
 ```json
-ERROR [backend 6/9] RUN ./mvnw dependency:go-offline
+[backend 6/9] RUN ./mvnw dependency:go-offline
 
  > [backend 6/9] RUN ./mvnw dependency:go-offline:
 : not foundw: line 20:
