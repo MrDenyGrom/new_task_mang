@@ -18,7 +18,15 @@
 
 Перейдите в проект `cd C:\Users\User\Desktop\Task_managment\new_task_mang`.
 
-И наконец запустите docker compose `docker-compose up --build`. 
+И наконец запустите docker compose (команды поочередно) 
+
+`docker-compose down`
+
+`docker-compose build --no-cache`
+
+`docker-compose up -d`. 
+
+`docker-compose up --build`
 
 Ждите.
 
