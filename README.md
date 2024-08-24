@@ -25,13 +25,13 @@
 В случае ошибки:  
 
 ```json
-=> ERROR [backend 6/9] RUN ./mvnw dependency:go-offline                                                           0.3s
-------
+ERROR [backend 6/9] RUN ./mvnw dependency:go-offline
+
  > [backend 6/9] RUN ./mvnw dependency:go-offline:
 : not foundw: line 20:
 : not foundw: line 31:
 0.266 ./mvnw: set: line 32: illegal option -
-------
+
 failed to solve: process "/bin/sh -c ./mvnw dependency:go-offline" did not complete successfully: exit code: 2
 ```
 
