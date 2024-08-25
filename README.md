@@ -204,8 +204,8 @@ API использует JWT авторизацию для контроля до
   "id": 2,
   "head": "string",
   "description": "string",
-  "status": "WAITING",
-  "priority": "LOW",
+  "status": "IN_PROGRESS",
+  "priority": "MEDIUM",
   "userAuthor": {
     "id": 1,
     "username": "string",
@@ -220,6 +220,7 @@ API использует JWT авторизацию для контроля до
 ```
 
 ### 4.3 Удаление задачи
+
 **DELETE** `/tasks/delete/{id}`
 
 Удаляет задачу по ее ID.
