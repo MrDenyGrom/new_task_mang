@@ -18,7 +18,6 @@ public class UserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-
     public UserDetailService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
@@ -26,12 +25,12 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.debug("Loading user by username: {}", username);
+        logger.info("Attempting to load user details for username: {}", username);
         return userRepository.findByUsername(username)
                 .map(UserDetail::new)
                 .orElseThrow(() -> {
-                    logger.error("User '{}' not found", username);
-                    return new UsernameNotFoundException(String.format("User '%s' not found", username));
+                    logger.error("User not found with username: {}", username);
+                    return new UsernameNotFoundException("User not found with username: " + username);
                 });
     }
 }
