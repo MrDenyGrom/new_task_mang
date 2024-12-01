@@ -14,11 +14,28 @@
 
 Пример: `cd C:\Users\User\Desktop\Task_managment`.
 
-Потом пропишите `git clone https://github.com/MrDenyGrom/task_mang.git`.
+Потом пропишите `git clone https://github.com/MrDenyGrom/new_task_mang.git`.
 
-Перейдите в проект `cd C:\Users\User\Desktop\Task_managment\task_mang`.
+Перейдите в проект `cd C:\Users\User\Desktop\Task_managment\new_task_mang`.
 
-И наконец запустите docker compose `docker-compose up --build`. 
+И наконец запустите docker compose
+
+`docker-compose up --build`
+
+В случае ошибки:  
+
+```json
+[backend 6/9] RUN ./mvnw dependency:go-offline
+
+ > [backend 6/9] RUN ./mvnw dependency:go-offline:
+: not foundw: line 20:
+: not foundw: line 31:
+0.266 ./mvnw: set: line 32: illegal option -
+
+failed to solve: process "/bin/sh -c ./mvnw dependency:go-offline" did not complete successfully: exit code: 2
+```
+
+Скорее всего неправильно установились mvnw и mvnw.cmd. Тогда зайдите в архив и перекиньте в корневую папку проекта те файлы которые там есть и снова попробуйте `docker-compose up --build`.
 
 Ждите.
 
@@ -136,7 +153,7 @@ API использует JWT авторизацию для контроля до
 
 ``` json
 {
-  "id": 4,
+  "id": 2,
   "head": "string",
   "description": "string",
   "status": "WAITING",
@@ -144,12 +161,12 @@ API использует JWT авторизацию для контроля до
   "userAuthor": {
     "id": 1,
     "username": "string",
-    "password": "$2a$10$162CrmXuycy6NWg5YJlhauEB/R8XCg9SY7DpazH5dzzKyyUSCDX/a"
+    "password": "$2a$10$HGEUFRBP4S8KdJSdf5kvb.7clxWKTSkOhco3Sq5VdoklZMZId/jcm"
   },
   "userExecutor": {
-    "id": 1,
-    "username": "string",
-    "password": "$2a$10$162CrmXuycy6NWg5YJlhauEB/R8XCg9SY7DpazH5dzzKyyUSCDX/a"
+    "id": 2,
+    "username": "123",
+    "password": "$2a$10$42ZKNO7fCIvyqsrbHLbXK.gpslRmEktBC6kCWU7FE474vbWUy8Tv2"
   }
 }
 ```
@@ -176,11 +193,34 @@ API использует JWT авторизацию для контроля до
 }
 ```
 ### Ответы:
-**200 OK:** *Задача успешно обновлена. Возвращается объект обновленной задачи.*
+**200 OK:** *Задача успешно обновлена.*
 
 **403 Forbidden:** *У вас нет прав на редактирование этой задачи (не вы создавали задачу).*
 
-### 4.3 Удаление задачи
+Возвращается объект обновленной задачи.
+
+``` json
+{
+  "id": 2,
+  "head": "string",
+  "description": "string",
+  "status": "IN_PROGRESS",
+  "priority": "MEDIUM",
+  "userAuthor": {
+    "id": 1,
+    "username": "string",
+    "password": "$2a$10$HGEUFRBP4S8KdJSdf5kvb.7clxWKTSkOhco3Sq5VdoklZMZId/jcm"
+  },
+  "userExecutor": {
+    "id": 2,
+    "username": "123",
+    "password": "$2a$10$42ZKNO7fCIvyqsrbHLbXK.gpslRmEktBC6kCWU7FE474vbWUy8Tv2"
+  }
+}
+```
+
+## 4.3 Удаление задачи
+
 **DELETE** `/tasks/delete/{id}`
 
 Удаляет задачу по ее ID.
@@ -194,7 +234,13 @@ API использует JWT авторизацию для контроля до
 
 **403 Forbidden:** *У вас нет прав на удаление этой задачи (не вы создавали задачу).*
 
-### 4.4 Получение задачи по ID
+В ответе успешность удаления:
+
+``` json
+Task successfully deleted
+```
+
+## 4.4 Получение задачи по ID
 
 **GET** `/tasks/get/{id}`
 
@@ -205,18 +251,83 @@ API использует JWT авторизацию для контроля до
 *id* (integer): ID задачи, которую нужно получить.
 
 ### Ответы:
-**200 OK:** *Задача найдена. Возвращается объект задачи.*
+**200 OK:** *Задача найдена.* 
 
-### 4.5 Получение списка задач пользователя
+Возвращается объект задачи:
+
+```json
+{
+  "id": 3,
+  "head": "string",
+  "description": "string",
+  "status": "WAITING",
+  "priority": "HIGH",
+  "userAuthor": {
+    "id": 1,
+    "username": "string",
+    "password": "$2a$10$HGEUFRBP4S8KdJSdf5kvb.7clxWKTSkOhco3Sq5VdoklZMZId/jcm"
+  },
+  "userExecutor": {
+    "id": 2,
+    "username": "123",
+    "password": "$2a$10$42ZKNO7fCIvyqsrbHLbXK.gpslRmEktBC6kCWU7FE474vbWUy8Tv2"
+  }
+}
+```
+
+## 4.5 Получение списка задач пользователя
 
 **GET** `/tasks/myTasks`
 
 Возвращает список всех задач, созданных пользователем или назначенных на него.
 
-### Ответы:
-**200 OK:** *Возвращается список объектов задач.*
 
-### 4.6 Обновление статуса задачи
+
+### Ответы:
+**200 OK:** *Успешно получено*
+
+Возвращается список объектов задач залогиненного пользователя (и автор и исполнитель):
+
+```json
+[
+  {
+    "id": 1,
+    "head": "string",
+    "description": "string",
+    "status": "WAITING",
+    "priority": "HIGH",
+    "userAuthor": {
+      "id": 1,
+      "username": "string",
+      "password": "$2a$10$HGEUFRBP4S8KdJSdf5kvb.7clxWKTSkOhco3Sq5VdoklZMZId/jcm"
+    },
+    "userExecutor": {
+      "id": 1,
+      "username": "string",
+      "password": "$2a$10$HGEUFRBP4S8KdJSdf5kvb.7clxWKTSkOhco3Sq5VdoklZMZId/jcm"
+    }
+  },
+  {
+    "id": 3,
+    "head": "string",
+    "description": "string",
+    "status": "WAITING",
+    "priority": "HIGH",
+    "userAuthor": {
+      "id": 1,
+      "username": "string",
+      "password": "$2a$10$HGEUFRBP4S8KdJSdf5kvb.7clxWKTSkOhco3Sq5VdoklZMZId/jcm"
+    },
+    "userExecutor": {
+      "id": 2,
+      "username": "123",
+      "password": "$2a$10$42ZKNO7fCIvyqsrbHLbXK.gpslRmEktBC6kCWU7FE474vbWUy8Tv2"
+    }
+  }
+]
+```
+
+## 4.6 Обновление статуса задачи
 
 **PUT** `/tasks/setStatus/{id}?status={status}`
 
@@ -229,13 +340,35 @@ API использует JWT авторизацию для контроля до
 *status* (string): Новый статус задачи (WAITING, IN_PROGRESS, COMPLETED).
 
 ### Ответы:
-**200 OK:** *Статус задачи успешно обновлен. Возвращается объект обновленной задачи.*
+**200 OK:** *Статус задачи успешно обновлен.* 
 
 **403 Forbidden:** *У вас нет прав на изменение статуса этой задачи.*
 
-### 5. Комментарии
+Возвращается объект обновленной задачи.
 
-### 5.1 Создание комментария
+```json
+{
+  "id": 3,
+  "head": "string",
+  "description": "string",
+  "status": "COMPLETED",
+  "priority": "HIGH",
+  "userAuthor": {
+    "id": 1,
+    "username": "string",
+    "password": "$2a$10$HGEUFRBP4S8KdJSdf5kvb.7clxWKTSkOhco3Sq5VdoklZMZId/jcm"
+  },
+  "userExecutor": {
+    "id": 2,
+    "username": "123",
+    "password": "$2a$10$42ZKNO7fCIvyqsrbHLbXK.gpslRmEktBC6kCWU7FE474vbWUy8Tv2"
+  }
+}
+```
+
+## 5 Комментарии
+
+## 5.1 Создание комментария
 
 **POST** `/comments/{taskId}/create`
 
@@ -253,17 +386,65 @@ API использует JWT авторизацию для контроля до
 ```
 
 ### Ответы:
-**201 Created:** *Комментарий успешно создан. Возвращается объект созданного комментария.*
+**201 Created:** *Комментарий успешно создан*.
 
-### 5.2 Получение комментариев к задаче
+Возвращается объект созданного комментария c указанием имени:
 
-**GET** */comments/{taskId}/comments*
+```json
+{
+  "id": 1,
+  "task": 3,
+  "appUser": "string",
+  "text": "newComment"
+}
+```
+
+## 5.2 Получение комментариев к задаче
+
+**GET** `/comments/{taskId}/comments`
 
 Возвращает список всех комментариев к задаче.
+
+
 
 **Параметры:**
 
 *taskId* (integer): ID задачи, комментарии к которой нужно получить.
 
 ### Ответы:
-**200 OK:** *Возвращается список объектов комментариев.*
+**200 OK:** *
+Возвращается список объектов комментариев:
+
+```json
+[
+  {
+    "id": 1,
+    "task": 3,
+    "appUser": "string",
+    "text": "newComment"
+  },
+  {
+    "id": 2,
+    "task": 3,
+    "appUser": "string",
+    "text": "newnewComment"
+  },
+  {
+    "id": 3,
+    "task": 3,
+    "appUser": "string",
+    "text": "newnewnewComment"
+  }
+]
+```
+
+
+
+
+
+
+
+
+
+
+
