@@ -60,4 +60,5 @@ class CustomCorsConfigurer implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
+
 }
